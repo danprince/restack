@@ -1,0 +1,42 @@
+import (filter) from "./func"
+
+-- reverses a block as though it was a stack
+to @flip = (reverse)
+
+-- prints "hello"
+(print "hello") @flip
+
+to square (dup *)
+to cube (dup dup * *)
+to cube (dup square *)
+
+1 5 range square map
+-- 2 4 9 16 25
+
+1 5 range (dup *) map
+-- 2 4 9 16 25
+
+1 10 range even? filter
+-- 2 4 6 8
+
+-- discards top value
+1 drop
+
+-- adds hello world to stack
+-- then pops and prints it
+"hello world" print
+
+-- if statement
+("bad" print)
+("good" print)
+1 true = if
+
+to fib (
+  (dup dup 1 - fib +)
+  (1)
+  0 > if
+)
+
+number? -- peek predicate
+(number? string? string?) -- type signature
+

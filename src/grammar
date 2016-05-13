@@ -1,0 +1,4 @@
+expression :: term | term expression
+term :: symbol | literal | block
+block :: open expression close
+literal :: string | number
