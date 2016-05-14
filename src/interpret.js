@@ -1,3 +1,5 @@
+// yep this is a hacky interpreter
+
 module.exports = interpret;
 const natives = require('./natives');
 
