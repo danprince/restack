@@ -206,5 +206,29 @@ npm install
 node run.js examples/func.rs
 ```
 
+## Caveats
+This is a super-early working version for a concept that I've thought about for a while. The lexer and parser need do an OK job, but extending either is difficult. The interpreter is straight up awful and has pretty much just grown for some test code I used to check the AST.
+
+There are a number of standard features which aren't supported at the moment.
+
+* Negative numbers
+* Decimal numbers
+* Values in macros
+* Modules (support in syntax, but not runtime)
+* Debugging
+* File export (exposing for modules)
+* Errors
+* Stack traces
+* Proper standard library
+
+There are a number of features I'd like to add, too.
+
+* Work with blocks as though they were stacks -> easier combinators
+* One nestable data structure (probably a list)
+* Object format (but not necessarily a literal)
+* REPL (needs interpreter rewrite)
+
+The eventual goal is to build a robust interpreter that can be used to grow the language whilst I build a compiler that generates JavaScript or Web Assembly from the AST.
+
 [1]: http://factorcode.org/
 
