@@ -12,5 +12,8 @@
   "devDependencies": {
     "tap-spec": "^4.1.1",
     "tape": "^4.4.0"
+  },
+  "dependencies": {
+    "sfx": "^0.1.1"
   }
 }

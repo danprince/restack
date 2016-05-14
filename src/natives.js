@@ -1,3 +1,4 @@
+const sfx = require('sfx');
 const interpret = require('./interpret');
 
 exports['+'] = function add(stack) {
@@ -22,9 +23,9 @@ exports.print = function print(stack) {
   return stack.slice(0, -1);
 };
 
-exports['print-all'] = function printAll(stack) {
+exports.show = function show(stack) {
   console.log(stack);
-  return [];
+  return stack;
 };
 
 exports.dup = function dup(stack) {
@@ -59,13 +60,12 @@ exports['string?'] = function isString(stack) {
 
 exports['='] = function equals(stack) {
   const [a, b] = [stack.pop(), stack.pop()];
-  console.log(a, b, a === b);
   return [...stack, a === b];
 };
 
 exports['if'] = function ifStatement(stack) {
-  const ifStatement = stack.pop();
   const elseStatement = stack.pop();
+  const ifStatement = stack.pop();
   const cond = stack.pop();
 
   if(cond) {
@@ -176,8 +176,10 @@ exports['every-other'] = function everyOther(stack) {
 exports.second = function second(stack) {
   const limiter = stack.pop();
   const action = stack.pop().expression;
+
+  let _stack = stack;
   const execute = limiter(() => {
-    interpret(action, stack, this);
+    _stack = interpret(action, _stack, this);
   });
 
   setInterval(execute, 1000);
@@ -189,12 +191,57 @@ exports.seconds = function second(stack) {
   const n = stack.pop();
   const limiter = stack.pop();
   const action = stack.pop().expression;
+
+  let _stack = stack;
   const execute = limiter(() => {
-    interpret(action, stack, this);
+    _stack = interpret(action, _stack, this);
   });
 
   setInterval(execute, n * 1000);
 
+  return stack;
+};
+
+exports.ms = function second(stack) {
+  const ms = stack.pop();
+  const limiter = stack.pop();
+  const action = stack.pop().expression;
+
+  let _stack = stack;
+  const execute = limiter(() => {
+    _stack = interpret(action, _stack, this);
+  });
+
+  setInterval(execute, ms);
+
+  return stack;
+};
+
+exports.when = function when(stack) {
+  const clause = stack.pop().expression;
+  const cond = stack.pop();
+  if(cond) {
+    return stack.concat(interpret(clause, stack, this));
+  } else {
+    return stack;
+  }
+};
+
+exports.swap = function swap(stack) {
+  const above = stack.pop();
+  const below = stack.pop();
+  stack.push(above, below);
+  return stack;
+};
+
+exports.cycle = function cycle(stack) {
+  stack.unshift(stack.pop());
+  return stack;
+};
+
+exports.play = function play(stack) {
+  const path = stack.pop();
+  sfx.play(path);
   return stack;
 };
 

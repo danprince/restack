@@ -13,7 +13,7 @@ function evaluate(stack, node) {
     };
     return stack;
   }
-  if(node.type == 'macro') {
+  else if(node.type == 'macro') {
     this[node.name] = function(stack) {
       const { terms } = node.body.expression;
       const expr = stack.pop().expression;
@@ -34,6 +34,9 @@ function evaluate(stack, node) {
       throw new Error(`Could not not find '${node.name}'`);
     }
     return this[node.name](stack);
+  }
+  else {
+    return stack;
   }
 }
 

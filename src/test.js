@@ -8,13 +8,6 @@ const interpret = require('./interpret');
 const lex = createLexer(tokenTypes);
 const tokens = lex(
 `
-to names ( "dan" "ed" "tim" "liam" )
-to greetings ( "hey" "yo" "hi" )
-
-to pick-name (names random)
-to pick-greeting (greetings random)
-
-(pick-name print) every 2 seconds
 `);
 
 //console.log('\nlex\n---');
