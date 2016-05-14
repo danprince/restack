@@ -9,12 +9,57 @@ exports['-'] = function sub(stack) {
   return [stack.reduce((a, b) => a - b)];
 };
 
+// pretend you didn't see these
+exports['-='] = function sub(stack) {
+  const a = stack.pop();
+  const b = stack.pop();
+  return [...stack, a - b];
+};
+exports['+='] = function sub(stack) {
+  const a = stack.pop();
+  const b = stack.pop();
+  return [...stack, a + b];
+};
+
 exports['/'] = function div(stack) {
   return [stack.reduce((a, b) => a / b)];
 };
 
 exports['*'] = function mul(stack) {
   return [stack.reduce((a, b) => a * b)];
+};
+
+exports['<'] = function lt(stack) {
+  const [a, b] = [stack.pop(), stack.pop()];
+  return [...stack, a < b];
+};
+
+exports['<='] = function lte(stack) {
+  const [a, b] = [stack.pop(), stack.pop()];
+  return [...stack, a <= b];
+};
+
+exports['>'] = function gt(stack) {
+  const [a, b] = [stack.pop(), stack.pop()];
+  return [...stack, a > b];
+};
+
+exports['>='] = function gte(stack) {
+  const [a, b] = [stack.pop(), stack.pop()];
+  return [...stack, a >= b];
+};
+
+exports.and = function and(stack) {
+  return [stack.reduce((a, b) => a && b)];
+};
+
+exports.or = function or(stack) {
+  return [stack.reduce((a, b) => a || b)];
+};
+
+exports.not = function or(stack) {
+  stack.push(!stack.pop());
+  return stack;
 };
 
 exports.print = function print(stack) {
@@ -126,6 +171,13 @@ exports['flat-map'] = function flatMap(stack) {
   .reduce((stack, val) => {
     return stack.concat(val);
   }, []);
+};
+
+exports.filter = function filter(stack) {
+  const filterer = stack.pop().expression;
+  return stack.filter(val => {
+    return interpret(filterer, [val], this)[0];
+  });
 };
 
 exports.fold = function fold(stack) {

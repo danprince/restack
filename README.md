@@ -227,6 +227,7 @@ There are a number of features I'd like to add, too.
 * One nestable data structure (probably a list)
 * Object format (but not necessarily a literal)
 * REPL (needs interpreter rewrite)
+* Better combinator libraries
 
 The eventual goal is to build a robust interpreter that can be used to grow the language whilst I build a compiler that generates JavaScript or Web Assembly from the AST.
 
