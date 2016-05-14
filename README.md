@@ -198,5 +198,13 @@ There are also parameterized generators which create events at a given rate.
 ("examples/hihat.wav" play) every 500 ms
 ```
 
+## Examples
+To run one of the files in the `examples/` folder, you'll need Node v6 and npm.
+
+```
+npm install
+node run.js examples/func.rs
+```
+
 [1]: http://factorcode.org/
 
