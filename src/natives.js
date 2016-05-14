@@ -154,20 +154,18 @@ exports.repeat = function repeat(stack) {
 exports.every = function every(stack) {
   return stack.concat([function(action) {
     return function() {
-      action();
+      return action();
     };
   }]);
 };
 
-exports['every-other'] = function everyOther(stack) {
+exports.some = function some(stack) {
   return stack.concat([function(action) {
-    let even = true;
-    return function(index) {
-      if(even) {
-        action();
-        even = false;
+    return function(stack) {
+      if(Math.random() > .5) {
+        return action();
       } else {
-        even = true;
+        return stack;
       }
     };
   }]);
@@ -177,7 +175,7 @@ exports.second = function second(stack) {
   const limiter = stack.pop();
   const action = stack.pop().expression;
 
-  let _stack = stack;
+  let _stack = stack.map(x => x);
   const execute = limiter(() => {
     _stack = interpret(action, _stack, this);
   });
@@ -192,7 +190,7 @@ exports.seconds = function second(stack) {
   const limiter = stack.pop();
   const action = stack.pop().expression;
 
-  let _stack = stack;
+  let _stack = stack.map(x => x);
   const execute = limiter(() => {
     _stack = interpret(action, _stack, this);
   });
@@ -207,7 +205,7 @@ exports.ms = function second(stack) {
   const limiter = stack.pop();
   const action = stack.pop().expression;
 
-  let _stack = stack;
+  let _stack = stack.map(x => x);
   const execute = limiter(() => {
     _stack = interpret(action, _stack, this);
   });

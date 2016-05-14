@@ -1,4 +1,4 @@
 (1 print) every second
 
-(2 print) every 2 seconds
+(2 print) some 2 seconds
 

@@ -17,9 +17,14 @@ function evaluate(stack, node) {
   }
   else if(node.type == 'macro') {
     this[node.name] = function(stack) {
+      // terms to re-arrange
       const { terms } = node.body.expression;
+      // function to re-arrange with
       const expr = stack.pop().expression;
+
+      // re-arrange using expr
       const macroed = terms.reduce(evaluate.bind(this), expr.terms);
+
       const newStack = macroed.reduce(evaluate.bind(this), stack);
       return [...stack, ...newStack];
     };
