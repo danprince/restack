@@ -2,7 +2,7 @@
 
 Restack is a concatenative, stack based language heavily inspired by [Factor][1].
 
-Everything revolves around a single stack of values, which we can modify with functions.
+Everything revolves around a single stack of values, which can be modified with functions.
 
 ```hs
 "Hello, world" print
@@ -20,7 +20,7 @@ The same idea can be used to work with numbers.
 First `2`, then `5` are added to the stack, then the `+` function is called. `+` pops all values from the stack, adds them together and pushes the result back onto the (now empty) stack.
 
 ## Functions
-restack allows you to name a piece of reusable code with the `to` keyword.
+Reusable code can be named with the `to` keyword.
 
 ```hs
 to add-two (2 +)
@@ -29,7 +29,7 @@ to add-two (2 +)
 -- [7]
 ```
 
-The lack of syntax in restack means that you can use almost any character in your function names.
+The lack of syntax means that almost any character can be used in function names.
 
 ```hs
 to +2 (2 +)
@@ -38,7 +38,7 @@ to +2 (2 +)
 -- [12]
 ```
 
-You can also define functions in terms of other functions.
+Functions can also be defined in terms of other functions.
 
 ```hs
 to inc (1 +)
@@ -49,7 +49,7 @@ to +2 (inc inc)
 ```
 
 ## Anonymous Functions
-Not all functions need to be named either.
+Not all functions need to be named.
 
 ```hs
 1 2 3 (2 *) map
@@ -71,7 +71,13 @@ Conditionals are quite strange in postfix languages.
 -- ["false"]
 ```
 
-First we'll need a boolean value at the top of the stack, then we provide an anonymous function for each logical branch. Finally, we can call `if` which will evaluate the correct function based on the boolean condition.
+The `if` function expects the top of the stack to have the following values in order:
+
+1. An else-branch anonymous function
+2. A then-branch anonymous function
+3. A boolean
+
+The function pops all three values and uses the boolean value to evaluate the appropriate function.
 
 There's also a `when` function for conditionals where the `else` branch doesn't matter.
 
@@ -84,7 +90,7 @@ There's also a `when` function for conditionals where the `else` branch doesn't 
 ```
 
 ## Variables
-There's no such thing as a variable in restack, instead we use functions to define constant values.
+There's no such thing as a variable in restack, instead functions are used to define constant values.
 
 ```hs
 to name ( "restack" )
@@ -96,7 +102,7 @@ to name ( "restack" )
 
 The `name` function simply pushes the string `"restack"` onto the top of the stack, whenever it's called.
 
-We can use the same idea to represent lists.
+The same idea can be used to represent lists.
 
 ```hs
 to xs ( 0 3 6 9 )
@@ -106,7 +112,7 @@ xs (/ 3) map
 ```
 
 ## Types
-Restack comes with a very basic type system of _peek predicates_. A peek predicate is a special function which checks the type of the top value on the stack (without popping it) and throws an error if it doesn't match the predicated type.
+There is a very basic type system using _peek predicates_. A peek predicate is a special function which checks the type of the top value on the stack (without popping it) and throws an error if it doesn't match the predicated type.
 
 ```hs
 3 number?
@@ -134,10 +140,10 @@ drop
 -- TypeError!
 ```
 
-Remember that you can't check the type of a value until it's at the top of a stack. Rather than writing a type signature for your function, use predicates to check values as-and-when you use them.
+Remember that the type of a value cannot be checked until it's at the top of a stack. Rather than having a function having a type signature,  predicates should be called just before values are used.
 
 ## Macros
-restack has a simple, but powerful macro system for runtime macros. A macro is like a function, except it's declared with a leading '@' sign.
+There's also a simple, but powerful macro system for runtime macros. A macro is like a function, except it's declared with a leading '@' sign.
 
 ```hs
 to @flip (reverse)
@@ -145,7 +151,7 @@ to @flip (reverse)
 (print "Hello, macro") @flip
 ```
 
-Rather than operating on the stack, a macro __always__ operates on an anonymous function, as though it was the stack. This allows us to compose macros out of all the regular tools and functions for working with the stack.
+Rather than operating on the stack, a macro __always__ operates on an anonymous function, as though it was the stack. This allows macros to be composed from all the regular functions for working with the stack.
 
 ```hs
 to @infix (swap)
@@ -193,3 +199,4 @@ There are also parameterized generators which create events at a given rate.
 ```
 
 [1]: http://factorcode.org/
+
