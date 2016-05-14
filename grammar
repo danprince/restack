@@ -1,9 +1,0 @@
-program :: statement | statement program | expression | expression program
-statement :: import | function | macro
-import :: importLiteral block fromLiteral string
-function :: symbol "=" expression
-macro :: symbol "@=" expression
-expression :: term | term expression
-term :: symbol | literal | block
-block :: open expression close
-literal :: string | number | boolean

@@ -1,49 +1,33 @@
-const createLexer = require('./lex');
+const createLexer = require('./lexer');
 const tokenTypes = require('./tokens');
 const parse = require('./parser');
 const traverse = require('./traverse');
+const pretty = require('./pretty');
+const interpret = require('./interpret');
 
 const lex = createLexer(tokenTypes);
-const tokens = lex(`
-import (filter) from "./func"
+const tokens = lex(
+`
+to names ( "dan" "ed" "tim" "liam" )
+to greetings ( "hey" "yo" "hi" )
 
--- reverses a block as though it was a stack
-@flip = reverse`);
+to pick-name (names random)
+to pick-greeting (greetings random)
 
-console.log('\nlex\n---');
-console.log(tokens.map(prettyToken).join('\n'));
+(pick-name print) every 2 seconds
+`);
+
+//console.log('\nlex\n---');
+//console.log(tokens.map(pretty.token).join('\n'));
 const cst = parse(tokens);
-
-console.log('\cst\n---');
-console.log(prettyTree(cst));
-
+//
+//console.log('\ncst\n---');
+//console.log(pretty.tree(cst));
+//
 const ast = traverse(cst);
-console.log('\ast\n---');
-console.log(prettyTree(ast));
+//console.log('\nast\n---');
+//console.log(pretty.tree(ast));
 
+const value = interpret(ast);
+console.log(value);
 
-function prettyToken(token) {
-  return `<${token.type} raw=${token.raw} line=${token.line} col=${token.col}>`;
-}
-
-function prettyTree(node, depth = 0) {
-  const indent = Array.from(Array(depth)).map(() => "  ").join('');
-
-  if(node.type == 'expression') {
-    return `${indent}<expression>\n${
-      node.terms.map(n => prettyTree(n, depth + 1)).join('\n')
-    }`
-  }
-  else if(node.type == 'term') {
-    return `${indent}<term>\n${prettyTree(node.value, depth + 1)}`;
-  }
-  else if(node.type == 'block') {
-    return `${indent}<block>\n${prettyTree(node.expression, depth + 1)}`;
-  }
-  else if(node.type == 'literal') {
-    return `${indent}<literal>\n${prettyTree(node.value, depth + 1)}`;
-  }
-  else {
-    return `${indent}<${node.type}> : ${node.raw}`;
-  }
-}

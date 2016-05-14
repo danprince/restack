@@ -1,7 +1,7 @@
 import (filter) from "./func"
 
 -- reverses a block as though it was a stack
-to @flip = (reverse)
+to @flip (reverse)
 
 -- prints "hello"
 (print "hello") @flip
