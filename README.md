@@ -1,5 +1,7 @@
 # restack
 
+[![Build Status](https://travis-ci.org/danprince/restack.svg?branch=master)](https://travis-ci.org/danprince/restack)
+
 Restack is a concatenative, stack based language heavily inspired by [Factor][1].
 
 Everything revolves around a single stack of values, which can be modified with functions.
