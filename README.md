@@ -213,8 +213,6 @@ This is a super-early working version for a concept that I've thought about for 
 
 There are a number of standard features which aren't supported at the moment.
 
-* Negative numbers
-* Decimal numbers
 * Values in macros
 * Modules (support in syntax, but not runtime)
 * Debugging
