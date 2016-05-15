@@ -205,7 +205,7 @@ To run one of the files in the `examples/` folder, you'll need Node v6 and npm.
 
 ```
 npm install
-node run.js examples/func.r_
+node run-example.js examples/func.r_
 ```
 
 ## Caveats

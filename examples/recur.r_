@@ -1,0 +1,8 @@
+to factorial (
+  number? dup
+  0 = (0) (dup 1 - factorial) if
+  +
+)
+
+3 factorial
+
