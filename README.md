@@ -1,4 +1,4 @@
-![restack](https://rawgit.com/danprince/restack/master/logo.svg)
+# <a href="/"><img src="https://rawgit.com/danprince/restack/master/logo.svg"></a>
 
 [![Build Status](https://travis-ci.org/danprince/restack.svg?branch=master)](https://travis-ci.org/danprince/restack)
 
