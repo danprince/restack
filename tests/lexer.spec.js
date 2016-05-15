@@ -63,7 +63,7 @@ test('generic lexer', t => {
 });
 
 test('language lexer', t => {
-  t.plan(30);
+  t.plan(34);
 
   const lexer = createLexer(realTypes);
 
@@ -115,6 +115,30 @@ test('language lexer', t => {
     '-204',
     lexer('-204')[0].raw,
     'should extract raw negative number'
+  );
+
+  t.equals(
+    'number',
+    lexer('3.14')[0].type,
+    'should identify decimal numbers'
+  );
+
+  t.equals(
+    '51.79',
+    lexer('51.79')[0].raw,
+    'should extract raw decimal number'
+  );
+
+  t.equals(
+    'number',
+    lexer('.14')[0].type,
+    'should identify leading point decimals'
+  );
+
+  t.equals(
+    '.79',
+    lexer('.79')[0].raw,
+    'should extract raw leading point decimal numbers'
   );
 
   // comments
