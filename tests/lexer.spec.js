@@ -63,7 +63,7 @@ test('generic lexer', t => {
 });
 
 test('language lexer', t => {
-  t.plan(28);
+  t.plan(30);
 
   const lexer = createLexer(realTypes);
 
@@ -103,6 +103,18 @@ test('language lexer', t => {
     '204',
     lexer('204')[0].raw,
     'should extract raw number'
+  );
+
+  t.equals(
+    'number',
+    lexer('-204')[0].type,
+    'should identify negative numbers'
+  );
+
+  t.equals(
+    '-204',
+    lexer('-204')[0].raw,
+    'should extract raw negative number'
   );
 
   // comments

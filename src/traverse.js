@@ -107,9 +107,12 @@ function simplify(node) {
     return node;
   }
   else if(_.isLiteral(node)) {
+    // drop the literal node and instead
+    // return its inner value
     return simplify(node.value);
   }
   else if(_.isSymbol(node)) {
+    // make a symbol.name property
     node.name = node.raw;
     return node;
   }
