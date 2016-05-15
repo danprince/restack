@@ -1,10 +1,19 @@
-function typeChecker(type) {
-  return function(node) {
-    return node.type == type;
-  }
-}
-
+/**
+ * Helper function for creating factory functions with a given
+ * type of node.
+ *
+ * @param {String} type The type of node that the returned
+ * factory function should create.
+ *
+ * @return {Function} A factory function which creates a node
+ * with the given type and optionally merges it with any passed
+ * properties.
+ */
 function nodeCreator(type) {
+  if(typeof type != 'string') {
+    throw new TypeError('nodeCreator must be called with a string');
+  }
+
   return function(props={}) {
     return Object.assign({
       type: type,
@@ -12,8 +21,28 @@ function nodeCreator(type) {
   };
 }
 
-exports.typeChecker = typeChecker;
+/**
+ * Helper function for creating a type checking function that
+ * will check the given type name against the type of whatever
+ * node is passed in.
+ *
+ * @param {String} type The type name to check in the returned
+ * function.
+ *
+ * @return {Function} A function which takes a node and checks
+ * its type against the given type.
+ */
+function typeChecker(type) {
+  if(typeof type != 'string') {
+    throw new TypeError('typeChecker must be called with a string');
+  }
+  return function(node) {
+    return node.type == type;
+  }
+}
+
 exports.nodeCreator = nodeCreator;
+exports.typeChecker = typeChecker;
 
 exports.isExpression = typeChecker('expression');
 exports.Expression = nodeCreator('expression');
@@ -57,11 +86,24 @@ exports.Function = nodeCreator('func');
 exports.isMacro = typeChecker('macro');
 exports.Macro = nodeCreator('macro');
 
-exports.condp = function condp(f, ...clauses) {
-  return function(x) {
-    const val = f(x);
-    for(let [test, ret] of clauses) {
-      if(val == test) return ret();
+/**
+ * Helper function for delayed evaluation with multiple
+ * clauses. See https://clojuredocs.org/clojure.core/condp.
+ *
+ * @param {Function} pred The predicate function which will
+ * be called with the input and test value from each clause.
+ *
+ * @param {Array} ...clauses Arrays of [test, thunk] which
+ * make up the clauses for the predicate.
+ *
+ * @return {Any} The result of calling the thunk around
+ * the return value.
+ */
+exports.condp = function condp(pred, ...clauses) {
+  return function(a) {
+
+    for(let [b, thunk] of clauses) {
+      if(pred(b, a)) return thunk();
     }
 
     throw new Error('Could not match: ' + x);

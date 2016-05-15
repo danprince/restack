@@ -24,7 +24,7 @@ function parse(tokens) {
 
   function Term() {
     const value = _.condp(
-      t => t.type,
+      (type, token) => type == token.type,
       ['symbol', () => tokens.shift()],
       ['open', () => Block()],
       ['string', () => Literal()],
