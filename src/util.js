@@ -54,3 +54,14 @@ exports.Function = nodeCreator('func');
 exports.isMacro = typeChecker('macro');
 exports.Macro = nodeCreator('macro');
 
+exports.condp = function condp(f, ...clauses) {
+  return function(x) {
+    const val = f(x);
+    for(let [test, ret] of clauses) {
+      if(val == test) return ret();
+    }
+
+    throw new Error('Could not match: ' + x);
+  }
+};
+

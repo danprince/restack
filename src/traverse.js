@@ -63,6 +63,8 @@ function expand(node) {
       name: identifier.name,
       body
     });
+
+    newTerms.push(node);
   }
 
   while(terms.length) {

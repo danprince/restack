@@ -13,6 +13,9 @@ exports.tree = function prettyTree(node, depth=0) {
   else if(node.type == 'term') {
     return `${indent}(term\n${prettyTree(node.value, depth + 1)})`;
   }
+  else if(node.type == 'symbol') {
+    return `${indent}(symbol:${node.raw})`;
+  }
   else if(node.type == 'block') {
     return `${indent}(block\n${prettyTree(node.expression, depth + 1)})`;
   }

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tape test/index.js | tap-spec"
+    "test": "tape tests/index.js | tap-spec"
   },
   "keywords": [],
   "author": "",
