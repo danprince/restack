@@ -29,7 +29,8 @@ function parse(tokens) {
       ['open', () => Block()],
       ['string', () => Literal()],
       ['number', () => Literal()],
-      ['comment', () => tokens.shift()]
+      ['comment', () => tokens.shift()],
+      ['bcomment', () => tokens.shift()]
     )(tokens[0]);
 
     return _.Term({ value });
