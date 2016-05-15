@@ -21,14 +21,15 @@ function createLexer(types) {
 
           if(matches) {
             const [match] = matches;
-            col += match.length;
-            pos += match.length;
 
             const token = {
               type: type.name,
               raw: match,
               line, col
             };
+
+            col += match.length;
+            pos += match.length;
 
             tokens.push(token);
             continue lexloop;
