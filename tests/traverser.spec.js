@@ -12,7 +12,7 @@ const toAST = src => traverse(parser(lexer(src)));
 test('traverse', t => {
   t.plan(12);
 
-  // simplifcation step
+  // reduction step
   t.notEquals(
     'term',
     toAST('1').terms[0].type,
@@ -22,7 +22,7 @@ test('traverse', t => {
   t.equals(
     'number',
     toAST('(2)').terms[0].expression.terms[0].type,
-    'should work simplify recursively within blocks'
+    'reduction should work recursively within blocks'
   );
 
   t.equals(

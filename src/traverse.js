@@ -1,6 +1,6 @@
 const _ = require('./util');
 
-function expand(node) {
+function expansion(node) {
   const terms = node.terms.map(t => t);
   const newTerms = [];
 
@@ -93,23 +93,23 @@ function expand(node) {
   return node;
 }
 
-function simplify(node) {
+function reduction(node) {
   if(_.isExpression(node)) {
     const terms = node.terms;
-    node.terms = node.terms.map(simplify).filter(n => n !== null);
+    node.terms = node.terms.map(reduction).filter(n => n !== null);
     return node;
   }
   else if(_.isTerm(node)) {
-    return simplify(node.value);
+    return reduction(node.value);
   }
   else if(_.isBlock(node)) {
-    node.expression = simplify(node.expression);
+    node.expression = reduction(node.expression);
     return node;
   }
   else if(_.isLiteral(node)) {
     // drop the literal node and instead
     // return its inner value
-    return simplify(node.value);
+    return reduction(node.value);
   }
   else if(_.isSymbol(node)) {
     // make a symbol.name property
@@ -135,7 +135,7 @@ function simplify(node) {
 }
 
 function traverse(node) {
-  return expand(simplify(node));
+  return expansion(reduction(node));
 }
 
 module.exports = traverse;
