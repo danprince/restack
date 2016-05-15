@@ -5,8 +5,8 @@ console.log(runFile);
 
 test('run examples', t => {
   const examples = [
-    'conditionals.rs', 'filter.rs', 'hello.rs',
-    'infix.rs', 'loop.rs', 'macro.rs', 'map.rs', 'types.rs'
+    'conditionals.r_', 'filter.r_', 'hello.r_',
+    'infix.r_', 'loop.r_', 'macro.r_', 'map.r_'
   ];
 
   const paths = examples.map(file => './examples/' + file);

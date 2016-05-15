@@ -6,18 +6,26 @@ const traverse = require('./traverse');
 const interpret = require('./interpret');
 const pretty = require('./pretty');
 
-function runFile(path) {
+function runFile(path, debug=false) {
   const buffer = fs.readFileSync(path);
   const src = buffer.toString();
 
   const lex = createLexer(tokenTypes);
   const tokens = lex(src);
   const cst = parse(tokens);
-  console.log('\ncst\n---');
-  console.log(pretty.tree(cst));
+
+  if(debug) {
+    console.log('\ncst\n---');
+    console.log(pretty.tree(cst));
+  }
+
   const ast = traverse(cst);
-  console.log('\nast\n---');
-  console.log(pretty.tree(ast));
+
+  if(debug) {
+    console.log('\nast\n---');
+    console.log(pretty.tree(ast));
+  }
+
   const value = interpret(ast);
 }
 
