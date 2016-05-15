@@ -1,5 +1,17 @@
+/**
+ * Creates a lexer function from an array of token definitions.
+ *
+ * @param {Array} types The types parameter should be an array
+ * of objects that each have `name:string` and `pattern:regex`
+ * properties. E.g `[{ name: 'number', pattern: /\d/ }]`.
+ *
+ * @returns {Function} A function which accepts a string of
+ * characters and converts them into an array of tokens, where
+ * a token is an object that has `type:string`, `raw:string`,
+ * `line:number` and `col:number` properties.
+ */
 function createLexer(types) {
-  return function lex(chars) {
+  return function lexer(chars) {
     const tokens = [];
     let pos = 0;
     let line = 1;

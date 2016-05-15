@@ -38,7 +38,7 @@ test('generic lexer', t => {
   t.deepEquals(
     ['number', 'operator', 'number', 'operator', 'number'],
     exampleTokens.map(token => token.type),
-    'should lex the correct types'
+    'should lex the types'
   );
 
   t.deepEquals(
@@ -50,38 +50,179 @@ test('generic lexer', t => {
   t.deepEquals(
     [1, 1, 1, 2, 2],
     exampleTokens.map(token => token.line),
-    'should correctly lex line numbers'
+    'should lex line numbers'
   );
 
   t.deepEquals(
     [1, 3, 5, 2, 4],
     exampleTokens.map(token => token.col),
-    'should correctly lex column numbers'
+    'should lex column numbers'
   );
 });
 
 test('language lexer', t => {
-  t.plan(1);
+  t.plan(25);
 
   const lexer = createLexer(realTypes);
 
-  t.doesNotThrow(
-    () => lexer('to square (* 2)'),
-    'should not throw for valid string'
+  // strings
+  t.equals(
+    'string',
+    lexer('"hello, world"')[0].type,
+    'should identify string'
   );
 
-  t.doesNotThrow(
-    () => lexer('\u25b6 square (* 2)'),
-    'should not throw for unicode in string'
+  t.equals(
+    '"hello world"',
+    lexer('"hello world"')[0].raw,
+    'should extract raw string'
   );
 
-  t.throw(
-    () => lexer('"hello" "'),
-    Error,
-    'should throw for unbalanced quotes'
+  t.notEquals(
+    'string',
+    lexer('\'hello, world\'')[0].type,
+    'should not work with single quotes'
   );
 
-  t.throw
+  t.notEquals(
+    '"hello, \n world"',
+    lexer('"hello,\n world"')[0].raw,
+    'should lex multiline strings'
+  );
+
+  // numbers
+  t.equals(
+    'number',
+    lexer('234')[0].type,
+    'should identify number'
+  );
+
+  t.equals(
+    '204',
+    lexer('204')[0].raw,
+    'should extract raw number'
+  );
+
+  // comments
+  t.equals(
+    'comment',
+    lexer('--hey')[0].type,
+    'should identify comments'
+  );
+
+  t.equals(
+    1,
+    lexer('--hey to square ()').length,
+    'should ignore tokens after comments'
+  );
+
+  t.equals(
+    5,
+    lexer('--hey\nto square ()').length,
+    'should not ignore tokens on new line after comment'
+  );
+
+  t.equals(
+    3,
+    lexer('hello world --hey').length,
+    'should lex comment at the end of a line'
+  );
+
+  // brackets
+  t.equals(
+    'open',
+    lexer('(')[0].type,
+    'should identify opening bracket'
+  );
+  t.equals(
+    'close',
+    lexer(')')[0].type,
+    'should identify closing bracket'
+  );
+
+  t.notEquals(
+    'open',
+    lexer('"("')[0].type,
+    'should not identify opening bracket in string'
+  );
+  t.notEquals(
+    'open',
+    lexer('")"')[0].type,
+    'should not identify closing bracket in string'
+  );
+
+  t.equals(
+    '(',
+    lexer('(')[0].raw,
+    'should extract raw value for opening bracket'
+  );
+  t.equals(
+    ')',
+    lexer(')')[0].raw,
+    'should extract raw value for closing bracket'
+  );
+
+  //symbols
+  t.equals(
+    'symbol',
+    lexer('hello')[0].type,
+    'should identify symbol'
+  );
+
+  t.equals(
+    'test-symbol',
+    lexer('test-symbol')[0].raw,
+    'should extract raw value for symbol'
+  );
+
+  t.equals(
+    'mysym2',
+    lexer('mysym2')[0].raw,
+    'should support symbols that include numbers'
+  );
+
+  t.notEquals(
+    '2mysym',
+    lexer('2mysym')[0].raw,
+    'should not support symbols that start with numbers'
+  );
+
+  t.notEquals(
+    'symb()l',
+    lexer('symb()l')[0].raw,
+    'should not support symbols that include parens'
+  );
+
+  // examples
+  const tokens = lexer(
+    `to square (2 *)
+2 square`
+  );
+
+  t.deepEquals(
+    ['symbol', 'symbol', 'open', 'number', 'symbol',
+     'close', 'number', 'symbol'],
+    tokens.map(token => token.type),
+    'should lex token types in example'
+  );
+
+  t.deepEquals(
+    ['to', 'square', '(', '2', '*', ')', '2', 'square'],
+    tokens.map(token => token.raw),
+    'should lex raw values in example'
+  );
+
+  t.deepEquals(
+    [1, 4, 11, 12, 14, 15, 1, 3],
+    tokens.map(token => token.col),
+    'should lex column numbers in example'
+  );
+
+  t.deepEquals(
+    [1, 1, 1, 1, 1, 1, 2, 2],
+    tokens.map(token => token.line),
+    'should lex line numbers in example'
+  );
 
 });
 
