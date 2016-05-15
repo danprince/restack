@@ -45,6 +45,9 @@ exports.Close = nodeCreator('close');
 exports.isComment = typeChecker('comment');
 exports.Comment = nodeCreator('comment');
 
+exports.isBlockComment = typeChecker('bcomment');
+exports.BlockComment = nodeCreator('bcomment');
+
 exports.isImport = typeChecker('import');
 exports.Import = nodeCreator('import');
 

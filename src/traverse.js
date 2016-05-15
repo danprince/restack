@@ -96,7 +96,7 @@ function expand(node) {
 function simplify(node) {
   if(_.isExpression(node)) {
     const terms = node.terms;
-    node.terms = node.terms.map(simplify);
+    node.terms = node.terms.map(simplify).filter(n => n !== null);
     return node;
   }
   else if(_.isTerm(node)) {
@@ -120,6 +120,12 @@ function simplify(node) {
   else if(_.isString(node)) {
     node.value = node.raw.slice(1, -1);
     return node;
+  }
+  else if(_.isComment(node)) {
+    return null;
+  }
+  else if(_.isBlockComment(node)) {
+    return null;
   }
 
   return node;

@@ -1,5 +1,9 @@
 import (filter) from "./func"
 
+---
+Ever wondered how to do block comments?
+---
+
 -- reverses a block as though it was a stack
 to @flip (reverse)
 
