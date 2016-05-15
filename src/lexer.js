@@ -34,14 +34,35 @@ function createLexer(types) {
           if(matches) {
             const [match] = matches;
 
+            const start = {
+              column: col,
+              line: line
+            };
+
+            // account for line breaks inside the token
+            const lineBreaks = match.split('\n');
+            const hasLineBreak = lineBreaks.length > 1;
+
+            if(hasLineBreak) {
+              const lastLine = lineBreaks[lineBreaks.length - 1];
+              line += lineBreaks.length - 1;
+              col = lastLine.length;
+            } else {
+              col += match.length;
+            }
+
+            pos += match.length;
+
+            const end = {
+              column: col - 1,
+              line: line
+            };
+
             const token = {
               type: type.name,
               raw: match,
-              line, col
+              loc: { start, end }
             };
-
-            col += match.length;
-            pos += match.length;
 
             tokens.push(token);
             continue lexloop;

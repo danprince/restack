@@ -48,15 +48,17 @@ test('generic lexer', t => {
   );
 
   t.deepEquals(
-    [1, 1, 1, 2, 2],
-    exampleTokens.map(token => token.line),
-    'should lex line numbers'
+    [{line: 1, column: 1}, {line: 1, column: 3}, {line: 1, column: 5},
+     {line: 2, column: 2}, {line: 2, column: 4}],
+    exampleTokens.map(token => token.loc.start),
+    'should lex starting positions'
   );
 
   t.deepEquals(
-    [1, 3, 5, 2, 4],
-    exampleTokens.map(token => token.col),
-    'should lex column numbers'
+    [{line: 1, column: 1}, {line: 1, column: 3}, {line: 1, column: 5},
+     {line: 2, column: 2}, {line: 2, column: 5}],
+    exampleTokens.map(token => token.loc.end),
+    'should lex end positions'
   );
 });
 
@@ -213,15 +215,19 @@ test('language lexer', t => {
   );
 
   t.deepEquals(
-    [1, 4, 11, 12, 14, 15, 1, 3],
-    tokens.map(token => token.col),
-    'should lex column numbers in example'
+    [{line: 1, column: 1}, {line: 1, column: 4}, {line: 1, column: 11},
+     {line: 1, column: 12}, {line: 1, column: 14}, {line: 1, column: 15},
+     {line: 2, column: 1}, {line: 2, column: 3}],
+    tokens.map(token => token.loc.start),
+    'should lex start positions'
   );
 
   t.deepEquals(
-    [1, 1, 1, 1, 1, 1, 2, 2],
-    tokens.map(token => token.line),
-    'should lex line numbers in example'
+    [{line: 1, column: 2}, {line: 1, column: 9}, {line: 1, column: 11},
+     {line: 1, column: 12}, {line: 1, column: 14}, {line: 1, column: 15},
+     {line: 2, column: 1}, {line: 2, column: 8}],
+    tokens.map(token => token.loc.end),
+    'should lex end positions'
   );
 
 });
