@@ -38,6 +38,7 @@ function evaluate(stack, node) {
   }
   else if(node.type == 'symbol') {
     if(!this.hasOwnProperty(node.name)) {
+      console.log(node);
       throw new Error(`Could not not find '${node.name}'`);
     }
     return this[node.name](stack);
