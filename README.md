@@ -1,4 +1,4 @@
-# restack
+![restack](/logo.svg)
 
 [![Build Status](https://travis-ci.org/danprince/restack.svg?branch=master)](https://travis-ci.org/danprince/restack)
 
