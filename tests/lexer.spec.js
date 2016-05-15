@@ -63,7 +63,7 @@ test('generic lexer', t => {
 });
 
 test('language lexer', t => {
-  t.plan(25);
+  t.plan(28);
 
   const lexer = createLexer(realTypes);
 
@@ -128,6 +128,32 @@ test('language lexer', t => {
     3,
     lexer('hello world --hey').length,
     'should lex comment at the end of a line'
+  );
+
+  // block comments
+  t.equals(
+    'bcomment',
+    lexer(`
+---
+hello world
+---`)[0].type,
+    'should identify block comments'
+  );
+
+  t.equals(
+    1,
+    lexer(`
+---
+hello
+world
+---`).length,
+    'should ignore content inside block comments'
+  );
+
+  t.equals(
+    3,
+    lexer(`hello --- stupid --- world`).length,
+    'should allow single line variant of block comments'
   );
 
   // brackets
