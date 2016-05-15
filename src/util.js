@@ -106,7 +106,6 @@ exports.condp = function condp(pred, ...clauses) {
       if(pred(b, a)) return thunk();
     }
 
-    console.warn(a);
     throw new Error(`Could not match: ${a}`);
   }
 };
