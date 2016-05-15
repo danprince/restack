@@ -2,31 +2,23 @@ const sfx = require('sfx');
 const interpret = require('./interpret');
 
 exports['+'] = function add(stack) {
-  return [stack.reduce((a, b) => a + b)];
+  const [a, b] = [stack.pop(), stack.pop()];
+  return [...stack, b + a];
 };
 
 exports['-'] = function sub(stack) {
-  return [stack.reduce((a, b) => a - b)];
-};
-
-// pretend you didn't see these
-exports['-='] = function sub(stack) {
-  const a = stack.pop();
-  const b = stack.pop();
-  return [...stack, a - b];
-};
-exports['+='] = function sub(stack) {
-  const a = stack.pop();
-  const b = stack.pop();
-  return [...stack, a + b];
-};
-
-exports['/'] = function div(stack) {
-  return [stack.reduce((a, b) => a / b)];
+  const [a, b] = [stack.pop(), stack.pop()];
+  return [...stack, b - a];
 };
 
 exports['*'] = function mul(stack) {
-  return [stack.reduce((a, b) => a * b)];
+  const [a, b] = [stack.pop(), stack.pop()];
+  return [...stack, b * a];
+};
+
+exports['/'] = function div(stack) {
+  const [a, b] = [stack.pop(), stack.pop()];
+  return [...stack, b / a];
 };
 
 exports['<'] = function lt(stack) {
