@@ -30,10 +30,6 @@ function createLexer(types) {
               line, col
             };
 
-            if(type.hasOwnProperty('parse')) {
-              token.value = type.parse(match);
-            }
-
             tokens.push(token);
             continue lexloop;
           }

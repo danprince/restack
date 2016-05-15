@@ -122,10 +122,18 @@ function simplify(node) {
     return node;
   }
   else if(isLiteral(node)) {
-    return node.value;
+    return simplify(node.value);
   }
   else if(isSymbol(node)) {
     node.name = node.raw;
+    return node;
+  }
+  else if(isNumber(node)) {
+    node.value = parseFloat(node.raw);
+    return node;
+  }
+  else if(isString(node)) {
+    node.value = node.raw.slice(1, -1);
     return node;
   }
 
