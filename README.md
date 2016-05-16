@@ -21,19 +21,6 @@ The same idea can be used to work with numbers.
 
 First `2`, then `5` are added to the stack, then the `+` function is called. `+` pops all values from the stack, adds them together and pushes the result back onto the (now empty) stack.
 
-## REPL
-Make sure you've installed the project dependencies before starting the REPL.
-
-```
-npm install
-```
-
-Then start the REPL by running the `repl.js` file.
-
-```
-node repl.js
-```
-
 ## Functions
 Reusable code can be named with the `to` keyword.
 
@@ -213,7 +200,19 @@ There are also parameterized generators which create events at a given rate.
 ("examples/hihat.wav" play) every 500 ms
 ```
 
-## Examples
+## REPL & Examples
+Make sure you've installed the project dependencies before starting.
+
+```
+npm install
+```
+
+Then start the REPL by running the `repl.js` file.
+
+```
+node repl.js
+```
+
 To run one of the files in the `examples/` folder, you'll need Node v6 and npm.
 
 ```
