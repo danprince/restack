@@ -79,6 +79,12 @@ function createTerm(term) {
     if(term.type == 'block') {
       return createBlock(term);
     }
+    if(term.type == 'string') {
+      return taggedSpan('string', '"' + term.value + '"');
+    }
+    if(term.type == 'number') {
+      return taggedSpan('number', term.value);
+    }
     if(term.type == 'symbol') {
       if(term.name.startsWith('@')) {
         return taggedSpan('macro', term.name);
