@@ -32,6 +32,9 @@ function color(a) {
   if(typeof a == 'string') {
     return chalk.green(`"${a}"`);
   }
+  if(typeof a == 'boolean') {
+    return chalk.red(`${a}`);
+  }
   if(typeof a == 'object') {
     if(a.type == 'block') {
       return block(a);

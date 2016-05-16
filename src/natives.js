@@ -2,42 +2,42 @@ const sfx = require('sfx');
 const interpret = require('./interpret');
 
 exports['+'] = function add(stack) {
-  const [a, b] = [stack.pop(), stack.pop()];
+  const [a, b] = [stack.pop() || 0, stack.pop() || 0];
   return [...stack, b + a];
 };
 
 exports['-'] = function sub(stack) {
-  const [a, b] = [stack.pop(), stack.pop()];
+  const [a, b] = [stack.pop() || 0, stack.pop() || 0];
   return [...stack, b - a];
 };
 
 exports['*'] = function mul(stack) {
-  const [a, b] = [stack.pop(), stack.pop()];
+  const [a, b] = [stack.pop() || 0, stack.pop() || 0];
   return [...stack, b * a];
 };
 
 exports['/'] = function div(stack) {
-  const [a, b] = [stack.pop(), stack.pop()];
+  const [a, b] = [stack.pop() || 0, stack.pop() || 0];
   return [...stack, b / a];
 };
 
 exports['<'] = function lt(stack) {
-  const [a, b] = [stack.pop(), stack.pop()];
+  const [a, b] = [stack.pop() || 0, stack.pop() || 0];
   return [...stack, a < b];
 };
 
 exports['<='] = function lte(stack) {
-  const [a, b] = [stack.pop(), stack.pop()];
+  const [a, b] = [stack.pop() || 0, stack.pop() || 0];
   return [...stack, a <= b];
 };
 
 exports['>'] = function gt(stack) {
-  const [a, b] = [stack.pop(), stack.pop()];
+  const [a, b] = [stack.pop() || 0, stack.pop() || 0];
   return [...stack, a > b];
 };
 
 exports['>='] = function gte(stack) {
-  const [a, b] = [stack.pop(), stack.pop()];
+  const [a, b] = [stack.pop() || 0, stack.pop() || 0];
   return [...stack, a >= b];
 };
 
@@ -55,9 +55,8 @@ exports.not = function or(stack) {
 };
 
 exports.print = function print(stack) {
-  const top = stack[stack.length - 1];
-  console.log(top);
-  return stack.slice(0, -1);
+  console.log(stack.pop());
+  return stack;
 };
 
 exports.show = function show(stack) {
@@ -193,6 +192,14 @@ exports.drop = function drop(stack) {
   return stack.slice(0, -1);
 };
 
+exports['drop-all'] = function drop(stack) {
+  return [];
+};
+
+exports.size = function drop(stack) {
+  return [stack.length];
+};
+
 exports.repeat = function repeat(stack) {
   const n = stack.pop();
   const val = stack.pop();
@@ -302,4 +309,3 @@ exports.play = function play(stack) {
 exports['throw'] = function throws(stack) {
   throw new Error(stack.pop());
 };
-
