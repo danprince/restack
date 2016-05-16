@@ -1,0 +1,15 @@
+-- type assertion
+to type= (
+  swap type
+  = ("Types do not match" throw) when
+)
+
+-- test unit/block (wip)
+test types (
+  3 "number" type =
+  "3 should be a number" assert
+
+  3 "string" type =
+  "3 should be a number" assert
+)
+

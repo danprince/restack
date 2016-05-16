@@ -95,6 +95,11 @@ exports['string?'] = function isString(stack) {
   return stack;
 };
 
+exports['type'] = function isString(stack) {
+  stack.push(typeof stack.pop());
+  return stack;
+};
+
 exports['='] = function equals(stack) {
   const [a, b] = [stack.pop(), stack.pop()];
   return [...stack, a === b];
@@ -276,6 +281,13 @@ exports.swap = function swap(stack) {
   return stack;
 };
 
+exports.swap = function swap(stack) {
+  const above = stack.pop();
+  const below = stack.pop();
+  stack.push(above, below);
+  return stack;
+};
+
 exports.cycle = function cycle(stack) {
   stack.unshift(stack.pop());
   return stack;
@@ -285,5 +297,9 @@ exports.play = function play(stack) {
   const path = stack.pop();
   sfx.play(path);
   return stack;
+};
+
+exports['throw'] = function throws(stack) {
+  throw new Error(stack.pop());
 };
 
