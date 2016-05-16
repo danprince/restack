@@ -216,7 +216,6 @@ node repl.js
 To run one of the files in the `examples/` folder, you'll need Node v6 and npm.
 
 ```
-npm install
 node run-example.js examples/func.r_
 ```
 
