@@ -209,7 +209,7 @@ npm install
 
 Use the `repl` script to start a REPL.
 
-```
+```bash
 ./repl
 # or
 node repl.js
@@ -217,7 +217,7 @@ node repl.js
 
 Use the `run` script to interpret a file.
 
-```
+```bash
 ./run examples/func.r_
 # or
 node run examples/func.r_
