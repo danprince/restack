@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>R&#x2630;PL</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <img src="https://rawgit.com/danprince/restack/master/logo.svg" />
+      <hr />
+      <div class="repl" id="repl">
+        <div class="repl__rows" id="repl-rows">
+        </div>
+        <div class="repl__prompt" id="repl-prompt">
+          <span id="repl-status" class="repl__prompt__status">&#x2630;</span>
+          <input
+            class="repl__prompt__input"
+            type="text"
+            id="repl-input"
+            placeholder='...'
+          />
+        </div>
+      </div>
+      <hr />
+      <div id='examples'>
+        <footer>
+          <section>
+            <h2>Words</h2>
+            <code data-example='2 dup'>dup</code>
+            <code data-example='3 trip'>trip</code>
+            <code data-example='1 3 2 swap'>swap</code>
+            <code data-example='2 3 1 cycle'>cycle</code>
+            <code data-example='3 2 1 reverse'>reverse</code>
+            <code data-example='1 2 3 random'>random</code>
+            <code data-example='1 2 2 drop'>drop</code>
+            <code data-example='1 2 drop-all'>drop-all</code>
+            <code data-example='"a" "b" size'>size</code>
+            <code data-example='"a" 3 repeat'>repeat</code>
+          </section>
+          <section>
+            <h2>Conditional</h2>
+            <code data-example='3 3 = ("good")("bad") if'>if</code>
+            <code data-example='3 3 = ("good") when'>when</code>
+          </section>
+          <section>
+            <h2>Math & Logic</h2>
+            <code data-example='1 2 +'>+</code>
+            <code data-example='2 1 -'>-</code>
+            <code data-example='5 2 *'>*</code>
+            <code data-example='10 2 /'>/</code>
+            <code data-example='5 5 ='>=</code>
+            <code data-example='1 5 <'>&lt;</code>
+            <code data-example='5 5 <='>&lt;=</code>
+            <code data-example='5 1 >'>&gt;</code>
+            <code data-example='5 5 >='>&gt;=</code>
+            <code data-example='1 1 = 2 2 = and'>and</code>
+            <code data-example='1 1 = 2 3 = or'>or</code>
+            <code data-example='1 1 = not'>not</code>
+          </section>
+        </footer>
+        <hr />
+        <footer>
+          <section>
+            <h2>Iteration</h2>
+            <code data-example='("hi" print) 5 times'>times</code>
+            <code data-example='1 2 3 (1 +) map'>map</code>
+            <code data-example='1 2 3 (dup) flat-map'>flat-map</code>
+            <code data-example='1 2 3 4 5 (3 <=) filter'>filter</code>
+            <code data-example='1 2 3 (+) fold'>fold</code>
+          </section>
+          <section>
+            <h2>Functions</h2>
+            <code data-example='to square (dup *)'>square</code>
+            <code data-example='to cube (dup dup * *)'>cube</code>
+            <code data-example='to +2 (2 +)'>+2</code>
+            <code data-example='to greet ("Hello" swap " " join) 
+"Restack" greet'>greet</code>
+          </section>
+          <section>
+            <h2>Macros</h2>
+            <code data-example='to @flip (reverse) (+ 5 5) @flip'>@flip</code>
+            <code data-example='to @infix (swap) (5 + 5) @infix'>@infix</code>
+          </section>
+        </footer>
+      </div>
+    </main>
+    <script src="_bundle.js"></script>
+  </body>
+</html>

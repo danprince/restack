@@ -1,4 +1,4 @@
-const sfx = require('sfx');
+//const sfx = require('sfx');
 const interpret = require('./interpret');
 
 exports['+'] = function add(stack) {

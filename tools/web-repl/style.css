@@ -1,0 +1,133 @@
+body {
+  font-family: monospace;
+  font-size: 1.2rem;
+}
+
+hr {
+  border: 0;
+  border-bottom: dashed 1px #BD9BE0;
+  margin: 1em 0;
+}
+
+main {
+  padding: 1em;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.repl {
+  height: 350px;
+  background: #160C21;
+  border-radius: 5px;
+  position: relative;
+  font-family: monospace;
+  text-align: left;
+  padding: .5em;
+  color: #eee;
+  overflow: hidden;
+}
+
+::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.repl__prompt {
+  color: #fff;
+}
+
+.repl__prompt__status {
+  color: #6419B2;
+}
+
+.repl__prompt__input {
+  color: #fff;
+  border: 0;
+  background: transparent;
+  font-family: monospace;
+  font-size: inherit;
+  width: 90%;
+  outline: none;
+}
+
+.tag {
+  margin-right: .5em;
+}
+
+.tag--string {
+  color: #009688;
+}
+
+.tag--number {
+  color: #FFEB3B;
+}
+
+.tag--boolean {
+  color: #F44336;
+}
+
+.tag--block {
+  background: rgba(255, 255, 255, .1);
+}
+
+.tag--bracket {
+  color: #664986;
+}
+
+.tag--symbol {
+  color: white;
+}
+
+.tag--macro {
+  font-weight: bold;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.error {
+  color: #DE463B;
+  font-weight: bold;
+}
+
+h1, h2, h3, h4, h5 {
+  color: #6419B2;
+}
+
+footer {
+  text-align: left;
+  overflow: hidden;
+}
+
+section {
+  float: left;
+  width: 33%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+code {
+  color: #512482;
+  background: #E7D0FF;
+  padding: .25rem;
+  line-height: 2.25rem;
+  cursor: pointer;
+  transition-duration: .1s;
+}
+
+code:hover {
+  background: #C0A5DC;
+  transition-duration: .1s;
+}
+
+code:active {
+  background: #6419B2;
+  color: #fff;
+  transition-duration: .5s;
+}
+
