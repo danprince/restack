@@ -207,16 +207,20 @@ Make sure you've installed the project dependencies before starting. You'll need
 npm install
 ```
 
-Then start the REPL by running the `repl.js` file.
+Use the `repl` script to start a REPL.
 
 ```
+./repl
+# or
 node repl.js
 ```
 
-To run one of the files in the `examples/` folder:
+Use the `run` script to interpret a file.
 
 ```
-node run-example.js examples/func.r_
+./run examples/func.r_
+# or
+node run examples/func.r_
 ```
 
 ## Caveats

@@ -1,8 +1,10 @@
-const runFile = require('./src/run');
+#!/usr/bin/env node
+
+const genFile = require('./src/gen');
 const path = process.argv[2];
 
 if(path) {
-  runFile(path);
+  genFile(path);
 } else {
   console.log('Need a path');
 }
