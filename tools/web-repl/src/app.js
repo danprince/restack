@@ -10,7 +10,9 @@ var stat = document.getElementById('repl-status');
 var examples = document.getElementById('examples');
 
 var context = {
-  carry: ''
+  carry: '',
+  history: [''],
+  cursor: 0
 };
 
 var defaultStat = stat.innerHTML;
@@ -104,6 +106,7 @@ function createBlock(block) {
 
 function evaluateREPL() {
   var code = input.value;
+  context.history.unshift(code);
   input.value = '';
 
   var history = createHistory(stat.innerText, ' ' + code);
@@ -130,7 +133,6 @@ function evaluateREPL() {
     // could not parse, switch prompt and continue
     stat.innerText = '..';
     context.carry += ('\n' + code);
-    console.log('carry', context.carry);
   } finally {
     repl.scrollTop = repl.scrollHeight;
   }
@@ -141,9 +143,17 @@ repl.addEventListener('click', function onREPLClick(e) {
 });
 
 input.addEventListener('keydown', function onREPLPress(e) {
+  var isUp = (e.which == 38);
+  var isDown = (e.which == 40);
   var isEnter = (e.which == 13);
-  if(!isEnter) return;
-  evaluateREPL();
+
+  if(isUp) {
+  }
+  else if(isDown) {
+  }
+  else if(isEnter) {
+    evaluateREPL();
+  }
 });
 
 examples.addEventListener('click', function onExampleClick(e) {

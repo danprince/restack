@@ -104,7 +104,7 @@ exports['='] = function equals(stack) {
   return [...stack, a === b];
 };
 
-exports['if'] = function ifStatement(stack) {
+exports['if'] = function ifs(stack) {
   const elseStatement = stack.pop();
   const ifStatement = stack.pop();
   const cond = stack.pop();
@@ -145,11 +145,11 @@ exports.times = function times(stack) {
 exports.range = function range(stack) {
   const end = stack.pop();
   const start = stack.pop();
-  const range = [];
+  const xs = [];
   for(let i = start; i < end; i++) {
-    range.push(i);
+    xs.push(i);
   }
-  return [...stack, ...range];
+  return [...stack, ...xs];
 };
 
 exports.map = function map(stack) {
