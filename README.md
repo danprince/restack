@@ -201,7 +201,7 @@ There are also parameterized generators which create events at a given rate.
 ```
 
 ## REPL & Examples
-Make sure you've installed the project dependencies before starting.
+Make sure you've installed the project dependencies before starting. You'll need node >= v6.0.0 and npm.
 
 ```
 npm install
@@ -213,7 +213,7 @@ Then start the REPL by running the `repl.js` file.
 node repl.js
 ```
 
-To run one of the files in the `examples/` folder, you'll need Node v6 and npm.
+To run one of the files in the `examples/` folder:
 
 ```
 node run-example.js examples/func.r_
