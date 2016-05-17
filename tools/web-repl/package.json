@@ -5,8 +5,9 @@
   "main": "repl.js",
   "scripts": {
     "build": "webpack -d",
-    "serve": "webpack-dev-server ./",
-    "watch": "npm run build -- --watch"
+    "serve": "webpack-dev-server",
+    "watch": "npm run build -- --watch",
+    "deploy": "surge --domain restack.surge.sh"
   },
   "devDependencies": {
     "babel-loader": "^6.2.4",

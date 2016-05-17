@@ -1,6 +1,27 @@
 //const sfx = require('sfx');
 const interpret = require('./interpret');
 
+exports['.'] = function dropDot(stack) {
+  console.log(stack);
+  return [];
+};
+
+exports['-'] = function sub(stack) {
+  const [a, b] = [stack.pop() || 0, stack.pop() || 0];
+  return [...stack, b - a];
+};
+
+exports['*'] = function mul(stack) {
+  const [a, b] = [stack.pop() || 0, stack.pop() || 0];
+  return [...stack, b * a];
+};
+
+exports['/'] = function div(stack) {
+  const [a, b] = [stack.pop() || 0, stack.pop() || 0];
+  return [...stack, b / a];
+};
+
+
 exports['+'] = function add(stack) {
   const [a, b] = [stack.pop() || 0, stack.pop() || 0];
   return [...stack, b + a];

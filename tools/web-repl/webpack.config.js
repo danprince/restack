@@ -1,10 +1,12 @@
+var path = require('path');
+
 module.exports = {
   entry: './src/app.js',
   output: {
-    path: __dirname,
+    path: './',
     filename: '_bundle.js'
   },
-  $comment$module: {
+  $module: {
     loaders: [
       {
         test: /\.js$/,

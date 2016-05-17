@@ -1,6 +1,14 @@
 var parse = require('./ast');
 var createInterpreter = require('./interpreter');
-var interpret = createInterpreter();
+var interpret = createInterpreter({
+  print: function(stack) {
+    var log = createRow();
+    log.innerText = stack.pop();
+    log.classList.add('log');
+    rows.appendChild(log);
+    return stack;
+  }
+});
 
 var repl = document.getElementById('repl');
 var rows = document.getElementById('repl-rows');
@@ -30,6 +38,7 @@ function createHistory(status, code) {
 
   var codeInput = document.createElement('input');
   codeInput.setAttribute('type', 'text');
+  codeInput.setAttribute('readonly', 'true');
   codeInput.classList.add('repl__prompt__input');
   codeInput.value = code;
 
@@ -110,6 +119,10 @@ function createBlock(block) {
   return container;
 }
 
+function deleteHistory() {
+  rows.innerHTML = '';
+}
+
 function evaluateREPL() {
   var code = input.value;
   context.history.unshift(code);
@@ -119,6 +132,12 @@ function evaluateREPL() {
   rows.appendChild(history);
 
   try {
+    var src = context.carry + code;
+    if(src == 'clear') {
+      deleteHistory();
+      return;
+    }
+
     var ast = parse(context.carry + code);
     context.carry = '';
 
@@ -170,5 +189,4 @@ examples.addEventListener('click', function onExampleClick(e) {
     evaluateREPL();
   }
 });
-
 
