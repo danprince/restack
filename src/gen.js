@@ -1,8 +1,8 @@
 const fs = require('fs');
-const createLexer = require('./lexer');
-const tokenTypes = require('./tokens');
-const parse = require('./parser');
-const traverse = require('./traverse');
+const createLexer = require('./parser/lexer');
+const tokenTypes = require('./parser/tokens');
+const parse = require('./parser/parser');
+const traverse = require('./parser/traverse');
 const interpret = require('./interpret');
 const generator = require('./generate');
 

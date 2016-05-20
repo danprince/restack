@@ -1,7 +1,7 @@
 const test = require('tape');
 
-const createLexer = require('../src/lexer');
-const realTypes = require('../src/tokens');
+const createLexer = require('../src/parser/lexer');
+const realTypes = require('../src/parser/tokens');
 const exampleTypes = [
   { name: 'number', pattern: /^\d+/ },
   { name: 'operator', pattern: /^[\+\-\*\/]/ }

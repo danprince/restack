@@ -1,10 +1,10 @@
 const test = require('tape');
 
 const _ = require('../src/util');
-const createLexer = require('../src/lexer');
-const tokens = require('../src/tokens');
-const parser = require('../src/parser');
-const traverse = require('../src/traverse');
+const createLexer = require('../src/parser/lexer');
+const tokens = require('../src/parser/tokens');
+const parser = require('../src/parser/parser');
+const traverse = require('../src/parser/traverse');
 const lexer = createLexer(tokens);
 
 const toAST = src => traverse(parser(lexer(src)));

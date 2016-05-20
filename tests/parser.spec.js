@@ -1,8 +1,8 @@
 const test = require('tape');
 
-const createLexer = require('../src/lexer');
-const tokens = require('../src/tokens');
-const parser = require('../src/parser');
+const createLexer = require('../src/parser/lexer');
+const tokens = require('../src/parser/tokens');
+const parser = require('../src/parser/parser');
 const _ = require('../src/util');
 
 test('parser', t => {

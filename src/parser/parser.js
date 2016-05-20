@@ -1,4 +1,4 @@
-const _ = require('./util');
+const _ = require('../util');
 
 /**
  * The parse functon takes an array of tokens and uses them to generate
