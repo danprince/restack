@@ -4,12 +4,12 @@ const _ = require('../src/util');
 const createLexer = require('../src/parser/lexer');
 const tokens = require('../src/parser/tokens');
 const parser = require('../src/parser/parser');
-const traverse = require('../src/parser/traverse');
+const transform = require('../src/parser/transform');
 const lexer = createLexer(tokens);
 
-const toAST = src => traverse(parser(lexer(src)));
+const toAST = src => transform(parser(lexer(src)));
 
-test('traverse', t => {
+test('transform', t => {
   t.plan(26);
 
   // reduction step

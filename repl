@@ -2,10 +2,10 @@
 const readline = require('readline');
 const chalk = require('chalk');
 
-const tokens = require('./src/tokens');
-const createLexer = require('./src/lexer');
-const parse = require('./src/parser');
-const traverse = require('./src/traverse');
+const tokens = require('./src/parser/tokens');
+const createLexer = require('./src/parser/lexer');
+const parse = require('./src/parser/parser');
+const transform = require('./src/parser/transform');
 const interpret = require('./src/interpret');
 const natives = require('./src/natives');
 const _ = require('./src/util');
@@ -13,7 +13,7 @@ const _ = require('./src/util');
 const package = require('./package.json');
 
 const lex = createLexer(tokens);
-const toAST = src => traverse(parse(lex(src)));
+const toAST = src => transform(parse(lex(src)));
 
 const scope = natives;
 let stack = [];

@@ -1,12 +1,12 @@
 const expansion = require('./transforms/expansion');
 const reduction = require('./transforms/reduction');
 
-function traverse(node) {
+function transform(node) {
   return [node]
     .map(reduction)
     .map(expansion)
     .shift();
 }
 
-module.exports = traverse;
+module.exports = transform;
 

@@ -1,8 +1,8 @@
-var tokens = require('../../../src/tokens');
-var createLexer = require('../../../src/lexer');
-var parse = require('../../../src/parser');
-var traverse = require('../../../src/traverse');
+var tokens = require('../../../src/parser/tokens');
+var createLexer = require('../../../src/parser/lexer');
+var parse = require('../../../src/parser/parser');
+var transform = require('../../../src/parser/transform');
 var lex = createLexer(tokens);
 
-module.exports = src => traverse(parse(lex(src)));
+module.exports = src => transform(parse(lex(src)));
 

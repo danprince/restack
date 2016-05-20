@@ -2,7 +2,7 @@ const fs = require('fs');
 const createLexer = require('./parser/lexer');
 const tokenTypes = require('./parser/tokens');
 const parse = require('./parser/parser');
-const traverse = require('./parser/traverse');
+const transform = require('./parser/transform');
 const interpret = require('./interpret');
 const pretty = require('./pretty');
 
@@ -19,7 +19,7 @@ function runFile(path, debug=false) {
     console.log(pretty.tree(cst));
   }
 
-  const ast = traverse(cst);
+  const ast = transform(cst);
 
   if(debug) {
     console.log('\nast\n---');

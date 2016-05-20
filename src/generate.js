@@ -30,7 +30,7 @@ ${node.body.terms.map(generate).map(indent).map(indent).join('\n')}
   },
   block(node) {
     return `$stack.push([
-        ${node.expression.terms.map(generate).map(indent).join(',')}
+        ${node.expression.terms.map(generate).map(indent).join('\n')}
       ]);`;
   },
   number(node) {

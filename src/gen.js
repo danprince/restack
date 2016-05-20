@@ -2,7 +2,7 @@ const fs = require('fs');
 const createLexer = require('./parser/lexer');
 const tokenTypes = require('./parser/tokens');
 const parse = require('./parser/parser');
-const traverse = require('./parser/traverse');
+const transform = require('./parser/transform');
 const interpret = require('./interpret');
 const generator = require('./generate');
 
@@ -13,7 +13,7 @@ function genFile(path) {
   const lex = createLexer(tokenTypes);
   const tokens = lex(src);
   const cst = parse(tokens);
-  const ast = traverse(cst);
+  const ast = transform(cst);
   console.log(generator(ast));
 }
 

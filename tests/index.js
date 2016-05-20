@@ -4,5 +4,5 @@ require('./run-examples');
 // unit tests
 require('./lexer.spec');
 require('./parser.spec');
-require('./traverser.spec');
+require('./transformer.spec');
 require('./util.spec');
