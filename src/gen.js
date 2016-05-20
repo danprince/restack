@@ -1,8 +1,5 @@
 const fs = require('fs');
-const createLexer = require('./parser/lexer');
-const tokenTypes = require('./parser/tokens');
-const parse = require('./parser/parser');
-const transform = require('./parser/transform');
+const toAST = require('./to-ast');
 const interpret = require('./interpret');
 const generator = require('./generate');
 
@@ -10,11 +7,8 @@ function genFile(path) {
   const buffer = fs.readFileSync(path);
   const src = buffer.toString();
 
-  const lex = createLexer(tokenTypes);
-  const tokens = lex(src);
-  const cst = parse(tokens);
-  const ast = transform(cst);
-  console.log(generator(ast));
+  const ast = toAST(src);
+  return generator(ast);
 }
 
 module.exports = genFile;
