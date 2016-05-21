@@ -1,4 +1,129 @@
-1 2 3 reverse
+---
+Playground for high level language ideas
+---
 
-(dup print cycle) every second
--- each second cy
+-- cond
+(
+  (dup 3 % 0 = swap 5 % 0 = and) ("fizzbuzz")
+  (3 % 0 =) ("fizz")
+  (5 % 0 =) ("buzz")
+) cond
+
+to multiple? (% 0 =)
+
+(
+  (dup 3 multiple? and 5 multiple?) ("fizzbuzz")
+  (3 multiple?) ("fizz")
+  (5 multiple?) ("buzz")
+) cond
+
+-- matching
+
+(
+  3 "fizz"
+  5 "buzz"
+) match
+
+-- match quoted
+(
+  3 ("fizz")
+  5 ("buzz")
+) matchq
+
+-- exec
+("hi" print) run
+
+-- named arguments
+to insert [tree val] (
+
+)
+
+-- frp
+import (by-id) from "dom"
+import (-> map subscribe fold) from "reactive"
+
+"inc" by-id "click" -> (1) map
+
+-- csp
+import (chan take put) from "async"
+
+to nchan ("numbers" chan)
+nchan 5 put
+
+nchan take -- blocks until a value can be taken
+dup print -- value is available now
+-- mmm big problems
+
+-- factor challenges
+-- turn 1 2 into 1 1 2
+1 2 swap dup swap
+1 2 over swap
+-- sum a list of numbers
+1 2 3 (+) fold
+-- sum 1 - 100
+1 100 range (+) fold
+-- squares of 1-10
+1 10 (sq) map
+-- given a number 0-99 return both digits
+32 (10 / floor) (10 mod) both
+-- repeat for arbitrary number of digits
+394 number->string "" split (string->number) map
+
+-- unit testing
+import (test) from "test"
+
+"suite name" (
+  (4) (3 1 +) "should = 4"
+  (5) (6 1 -) "should = 5"
+) test
+
+-- objects
+(foo:1 bar:2 baz:3) -- objects as syntax
+((foo 1) (bar 2) (baz 3)) -- objects with macros
+("foo" 1 "bar" 2 "baz" 3) -- objects by convention
+
+"foo" get -- lookup property
+"quz" 4 set -- set property
+
+-- tuples
+("foo" 4) -- tuple by convention
+first -- get first item
+second -- get second
+third -- ...
+last -- get last
+
+-- protocols
+to foozbar (
+  (baz bar foo) protocol
+)
+
+to quxor (
+  (
+    baz ("baz" print)
+    bar ("bar" print)
+    foo ("foo" print)
+  ) foozbar implements
+)
+
+quxor -- puts a quxor on the stack, throws if it doesn't implement foozbar
+"baz" call -- calls the baz method of quxor
+
+-- web server
+import (server) from "http"
+
+to handle [req] (
+  dup -- duplicate request for later
+
+  "url" get -- get the url property
+
+  ("/foo" ("<h1>Foo</h1>")
+   "/bar" ("<h2>Bar</h2>")
+   "/baz" ("<h3>Baz</h3>")
+  ) match -- match against a route handling function
+
+  run -- run the handler at the top of stack
+)
+
+(handle) 8080 server
+
+
