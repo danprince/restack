@@ -12,7 +12,7 @@ Playground for high level language ideas
 to multiple? (% 0 =)
 
 (
-  (dup 3 multiple? and 5 multiple?) ("fizzbuzz")
+  (dup 3 multiple? 5 multiple? and) ("fizzbuzz")
   (3 multiple?) ("fizz")
   (5 multiple?) ("buzz")
 ) cond
@@ -125,5 +125,71 @@ to handle [req] (
 )
 
 (handle) 8080 server
+
+-- rendering html
+import (div span) from "dom"
+import (render) from "html"
+
+to App [name] (
+  (div (class "test")
+    (span (class "inner")
+      name))
+)
+
+App render
+
+-- session storage
+
+import (div span) from "dom"
+import (render) from "html"
+import (session) from "session"
+
+to users (
+  "users" session
+)
+
+to App [name] (
+  users (:span) map
+)
+
+-- reactive stack
+import (rstack) from "reactive"
+
+("change" print) -- stack subscription
+rstack -- convert stack to reactive version
+3 -- prints "change"
+5 -- prints "change"
+
+-- http request
+import (get) from "http"
+
+"localhost:3000/api" get
+"done" print
+
+-- string interpolation
+("place" "world") "Hello {place}" into-key
+"world" "Hello {0}" into
+
+-- building a postfix calculator
+import (button set-attr) from "dom"
+import (-> map merge subscribe) from "reactive"
+
+to Calculator (
+  "+" button "click" -> (+) map
+  "-" button "click" -> (-) map
+  "/" button "click" -> (/) map
+  "*" button "click" -> (*) map
+
+  "1" button "click" -> (1) map
+  "2" button "click" -> (2) map
+  "3" button "click" -> (3) map
+  "4" button "click" -> (4) map
+  -- ...
+  (merge) fold
+)
+
+("output" by-id "value" set-attr) Calculator subscribe
+
+
 
 
