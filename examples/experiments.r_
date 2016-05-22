@@ -190,6 +190,19 @@ to Calculator (
 
 ("output" by-id "value" set-attr) Calculator subscribe
 
+-- number guesser
+import (read) from "io"
 
+to pick ( 0 100 range random )
 
+to play (
+  "What is the number?" print
+  dup read parse-int
+  ((=) ("Correct!")
+   (<) ("Lower")
+   (>) ("Higher")
+  ) cond print
+)
+
+pick play
 
